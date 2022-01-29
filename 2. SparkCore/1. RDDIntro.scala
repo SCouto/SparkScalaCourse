@@ -9,46 +9,94 @@ rdd.count
 
 // COMMAND ----------
 
-//Ejercicio 2 - Filter
-val rddInts = sc.parallelize(1 to 50)
+// MAGIC %md 
+// MAGIC **Ejercicio 2 Filter**: 
+// MAGIC 
+// MAGIC - Crea un RDD de números y filtra los números pares
+// MAGIC   - Para saber si un número es par calcula su módulo 2 y compáralo con 0
+// MAGIC   - número % 2  == 0
 
-val rddFiltered = rddInts.filter(_ % 2== 0)
+// COMMAND ----------
+
+//Ejercicio 2 - Filter
+val rddInts = ???
+
+val rddFiltered = ???
 
 display(rddFiltered.toDF)
 
 // COMMAND ----------
 
+// MAGIC %md
+// MAGIC **Ejercicio3**
+// MAGIC 
+// MAGIC Sobre el mismo RDD anterior, convierte cada elemento en el doble de su valor
+
+// COMMAND ----------
+
 //Ejercicio 3 - Map
-val rddMapped = rddFiltered.map(_ *2)
+val rddMapped = ???
 
 display(rddMapped.toDF)
 
 // COMMAND ----------
 
-//Ejercicio 3 - FlatMap
-val rddSentences = sc.parallelize(List("Hola amigos", "Estoy aqui", "Con vosotros", "Muy contento"))
+// MAGIC %md 
+// MAGIC 
+// MAGIC **Ejercicio 4 flatMap**  
+// MAGIC - Crea un RDD de Strings conde cada elemento sea una frase
+// MAGIC   - Usa flatMap para splitearlo en palabras 
+// MAGIC   - Para splitear un String por un espacio usa *_.split(" ")*
+// MAGIC   
+// MAGIC   
+// MAGIC *Guarda este método porque lo usaremos en ejercicios posteriores*
 
-val rddWords = rddSentences.flatMap(_.split(" "))
+// COMMAND ----------
+
+//Ejercicio 4 - FlatMap
+val rddSentences = ???
+
+val rddWords = ???
 
 
 display(rddWords.toDF)
 
 // COMMAND ----------
 
-//Ejercicio 4 - mapValues
-val rddEmpleados = sc.parallelize(List(("Empleado1", 1500),("Empleado2", 2000),("Empleado3", 1700)))
+// MAGIC %md
+// MAGIC 
+// MAGIC **Ejercicio 5 mapValues**
+// MAGIC - Crea un PairRDD con la clave un nombre y el valor un número (sueldo)
+// MAGIC   - Crea una lista de tuplas y paralelizala con *sc.parallelize*
+// MAGIC     - *List(("elem1", "elem2"))*
+// MAGIC   - Transfórmalo con mapValues para aumentar el sueldo en 500
+// MAGIC   - Usa una lista de tuplas para crearlo
 
-//val rddEmpleadosUpdated = rddEmpleados.mapValues(_ + 500)
-val rddEmpleadosUpdated = rddEmpleados.map{case (k,v) => (k, v + 500)}
+// COMMAND ----------
+
+//Ejercicio 5 - mapValues
+val rddEmpleados = ???
+
+val rddEmpleadosUpdated = ???
 
 
 display(rddEmpleadosUpdated.toDF)
 
 // COMMAND ----------
 
-//Ejercicio 5
-val rddDepartamentos = sc.parallelize(List(("Dept1", 1500),("Dept1", 2000),("Dept2", 1700)))
+// MAGIC %md
+// MAGIC ** Ejercicio 6  reduceByKey**
+// MAGIC 
+// MAGIC - Crea un PairRDD usando una lista de tuplas donde:
+// MAGIC   - El primer elemento sea el nombre de un departamento
+// MAGIC   - El segundo elemento sea un número (cantidad de empleados p.e.)
+// MAGIC - Usa reduceByKey para obtener el número total de empleados por departamento
 
-val rddDepartamentosUpdated = rddDepartamentos.reduceByKey((v1, v2) => v1 + v2)
+// COMMAND ----------
+
+//Ejercicio 6
+val rddDepartamentos = ??
+
+val rddDepartamentosUpdated = ??
 
 display(rddDepartamentosUpdated.toDF)
