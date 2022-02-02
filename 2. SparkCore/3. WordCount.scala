@@ -14,7 +14,7 @@
 // MAGIC 
 // MAGIC * Para obtener las palabras sigue el siguiente proceso
 // MAGIC   - Splitealo en palabras usando flatMap
-// MAGIC   - Elimina símbolos y pasa todo a mayúsculas. Usa map con .replaceAll("\\W+", "")
+// MAGIC   - Elimina símbolos y pasa todo a mayúsculas. Usa map con .replaceAll("\\\W+", "")
 // MAGIC   - Filtra contenidos vacíos mediante el método filter. Para saber si un String es vacío puedes usar isEmpty
 // MAGIC   - Deberías ntener ahora de un RDD de la siguiente forma:
 // MAGIC 
