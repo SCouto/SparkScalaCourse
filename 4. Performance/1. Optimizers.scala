@@ -38,9 +38,8 @@ df.printSchema
 // MAGIC 
 // MAGIC # Query optimization
 // MAGIC 
-// MAGIC 1. Logical optimizations
+// MAGIC 1. Optimizaciones lógicas
 // MAGIC 2. Predicate pushdown
-// MAGIC 3. No predicate pushdown
 
 // COMMAND ----------
 
