@@ -24,9 +24,6 @@ Class.forName("org.postgresql.Driver")
 
 val eventsPath = "dbfs:/FileStore/input/events"
 
-val dfOriginal = spark.read.parquet("/mnt/training/ecommerce/events/events.parquet")
-
-
 val df = spark.read.option("header", true).option("inferSchema", "true").option("quote", "\"").option("escape", "\"").csv(eventsPath)
 display(df)
 
