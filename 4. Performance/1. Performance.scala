@@ -27,8 +27,6 @@ val eventsPath = "dbfs:/FileStore/input/events"
 val df = spark.read.option("header", true).option("inferSchema", "true").option("quote", "\"").option("escape", "\"").csv(eventsPath)
 display(df)
 
-df.printSchema
-
 // COMMAND ----------
 
 // MAGIC %md
@@ -153,3 +151,28 @@ val jdbcDF = spark.read
        
 
 filteredDF.explain(true)
+
+// COMMAND ----------
+
+// MAGIC %md 
+// MAGIC # Partitioning
+// MAGIC - Comprobando número de particiones
+// MAGIC - Comprobar defaultParallelism para obtener los slots del cluster
+
+// COMMAND ----------
+
+df.rdd.getNumPartitions
+
+// COMMAND ----------
+
+println(spark.sparkContext.defaultParallelism)
+
+// COMMAND ----------
+
+val repartitonedDF = df.repartition(8)
+repartitonedDF.rdd.getNumPartitions
+
+// COMMAND ----------
+
+val coalescedDF = repartitonedDF.coalesce(1)
+repartitonedDF.rdd.getNumPartitions
