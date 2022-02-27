@@ -125,6 +125,34 @@ display(df)
 
 // COMMAND ----------
 
+// MAGIC %md
+// MAGIC 
+// MAGIC # Vacuum
+// MAGIC 
+// MAGIC - Es posible eliminar la historia de una tabla mediante vacuum
+// MAGIC - Permite fijar un tiempo de retención
+// MAGIC - Por defecto está protegido 
+
+// COMMAND ----------
+
+spark.conf.set("spark.databricks.delta.retentionDurationCheck.enabled", false)
+
+spark.sql(" VACUUM delta.`$miniDeltaDataPath` RETAIN 0 HOURS ")
+
+// COMMAND ----------
+
+// MAGIC %md 
+// MAGIC 
+// MAGIC - Intenta leer ahora la versión 0
+
+// COMMAND ----------
+
+val df = spark.read.format("delta").option("versionAsOf", 0).load(miniDeltaDataPath)
+
+display(df)
+
+// COMMAND ----------
+
 
 //Limpieza 
 //spark.sql("DROP TABLE IF exists customer_data_delta_mini")
