@@ -42,28 +42,11 @@ import scala.util.{Failure, Success, Try}
 // COMMAND ----------
 
 //Ejercicios
-def applyRate(cant: Double, tipo: Option[Double]): Double = {
-    cant * tipo.getOrElse(1.5)
-}
+def applyRate(cant: Double, tipo: Option[Double]): Double = ???
 
-def applyOptionalRate(cant: Option[Double], tipo: Option[Double]): Option[Double] = {
-    //si no tienes cant => None
-    //si no tienes tipo => cand * 1.5
-    //si te falta algo => None  SE PUEDE HACER PATTERN MATCHINH DE TUPLAS
+def applyOptionalRate(cant: Option[Double], tipo: Option[Double]): Option[Double] = ???
 
-    (cant, tipo) match {
-      case (Some(c), Some(t)) => Some(c * t)
-      case _ => None
-    }
-}
-
-def second(list: List[Int]): Option[Int] = {
-  list match {
-    case h :: h2 :: t => Some(h2)
-    case _ => None
-  }
-}
-
+def second(list: List[Int]): Option[Int] = ???
 // COMMAND ----------
 
 import org.scalacheck.Gen
