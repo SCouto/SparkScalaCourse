@@ -47,7 +47,7 @@ unSoldproducts.show(10)
 
 // COMMAND ----------
 
-//Transacciones de los 10 productos con mayor stock
+//Transacciones de los 8 productos con mayor stock
 val topStockedProducts = ???
 
 val topStockedTransactions = ???
