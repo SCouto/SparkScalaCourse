@@ -52,6 +52,11 @@ val eventStream = spark.readStream.option("maxFilesPerTrigger", 1).schema(mySche
 
 display(eventStream)
 
+
+// COMMAND ----------
+
+display(eventStream)
+
 // COMMAND ----------
 
 //Crea una ventana sobre la columna time de 1h de duración

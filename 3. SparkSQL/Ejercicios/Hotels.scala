@@ -49,7 +49,7 @@ display(hotelsSpain)
 
 // COMMAND ----------
 
-//hoteles de Espanha con ingresos
+//hoteles de Espanha cada uno con sus ingresos (incluso si sus ingresos son 0)
 val hotelsSpainWithRevenues = ???
 
 display(hotelsSpainWithRevenues)
