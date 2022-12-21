@@ -11,7 +11,7 @@
 // MAGIC 
 // MAGIC ### A realizar
 // MAGIC - Carga una ventana en base a la columna time, de 1 h de duración
-// MAGIC   - Usa la siguiente sintasis val w = Window(columna, duration) 
+// MAGIC   - Usa la siguiente sintasis val w = window(columna, duration)
 // MAGIC   - La duración se indica en texto, por ejemplo: "1 hour"
 // MAGIC   - Emplea esa ventana para agrupar por action y cuenta los valores. Es la misma sintaxis que con DataFrames
 // MAGIC     - groupBy(columna, ventana) 

@@ -2,7 +2,7 @@
 // MAGIC %md 
 // MAGIC 
 // MAGIC 
-// MAGIC ![Delta Lake](https://live-delta-io.pantheonsite.io/wp-content/uploads/2019/04/delta-lake-logo-tm.png)
+// MAGIC ![Delta Lake](https://camo.githubusercontent.com/5535944a613e60c9be4d3a96e3d9bd34e5aba5cddc1aa6c6153123a958698289/68747470733a2f2f646f63732e64656c74612e696f2f6c61746573742f5f7374617469632f64656c74612d6c616b652d77686974652e706e67)
 // MAGIC # Delta Lake 
 // MAGIC 
 // MAGIC 
@@ -44,6 +44,7 @@ spark.sql("MSCK REPAIR TABLE customer_data")
 
 spark.table("customer_data").count
 
+display(spark.table("customer_data").groupBy("Country").count.orderBy($"country"))
 
 
 // COMMAND ----------
@@ -52,7 +53,10 @@ spark.table("customer_data").count
 // MAGIC 
 // MAGIC # Añadiendo registros
 // MAGIC 
-// MAGIC - La tabla base tiene 14314 registros
+// MAGIC - La tabla base tiene 14313 registros
+// MAGIC   - Suecia: 41
+// MAGIC   - España: 355
+// MAGIC   - Sierra Leona no existe
 // MAGIC - **Ejercicio**
 // MAGIC   - Cargar el fichero retail_mini.csv que contiene 36 registros 
 // MAGIC     - 18 registros de Suecia
@@ -60,6 +64,26 @@ spark.table("customer_data").count
 // MAGIC     - 1 registro de España
 // MAGIC   - Escríbelo en el mismo path
 // MAGIC     - Recuerda usar append en vez de overwrite
+
+// COMMAND ----------
+
+//Carga el dataframe mini
+val miniInputPath = s"$baseInputPath/retail_mini.csv"
+val rawDF = ???
+
+display(rawDF.groupBy("Country").count.orderBy($"country"))
+
+// COMMAND ----------
+
+//Escribimos en modo append en la ruta de parquet 
+//rawDF.write
+
+
+// COMMAND ----------
+
+//Comprobamos registros (Deberían salir 14349)
+
+
 
 // COMMAND ----------
 
@@ -76,6 +100,16 @@ spark.table("customer_data").count
 // MAGIC  - **Ejercicio** 
 // MAGIC    - Ejecuta `display(spark.sql("select Country, count(*) from customer_data group by Country"))` y compruébalo
 // MAGIC    - Luego ejecuta MSCK REPAIR TABLE y compruébalo de nuevo
+
+// COMMAND ----------
+val byCountryDF =
+
+display(byCountryDF)
+
+// COMMAND ----------
+
+// MAGIC %sql
+// MAGIC MSCK REPAIR TABLE customer_data
 
 // COMMAND ----------
 
@@ -96,7 +130,7 @@ dbutils.fs.rm(deltaDataPath, true)
 spark.sql("DROP TABLE IF exists customer_data_delta")
 
 spark.read 
-  .option("header", "true")
+  .option("header", true)
   .option("inferSchema", true)
   .csv(inputPath) 
   .write
@@ -112,17 +146,13 @@ spark.sql(s"""
 """)
 
 
-
-
-
-
 // COMMAND ----------
 
 // MAGIC %md
 // MAGIC 
 // MAGIC - **Ejercicio**
 // MAGIC   - Carga ahora el fichero retail_mini.csv que contiene 36 registros pero indicándole el schema que aparece en la celda
-// MAGIC     - Usa el método `schema(inputSchema)`
+// MAGIC     - En vez de inferSchema, usa el método `schema(inputSchema)`
 // MAGIC   - Escríbelo en la ruta de `deltaDataPat` en modo append
 
 // COMMAND ----------
@@ -131,7 +161,18 @@ spark.sql(s"""
 val miniInputPath = s"$baseInputPath/retail_mini.csv"
 val inputSchema = "InvoiceNo STRING, StockCode STRING, Description STRING, Quantity INT, InvoiceDate STRING, UnitPrice DOUBLE, CustomerID String, Country STRING"
 
-//Carga y esribe el dataframe aquí
+//Carga el dataframe mini
+val rawDF = ???
+
+val byCountryDF = ???
+
+display(byCountryDF)
+
+
+// COMMAND ----------
+
+//Escribimos en modo append en la ruta de parquet 
+//rawDF.write
 
 // COMMAND ----------
 
@@ -141,13 +182,11 @@ val inputSchema = "InvoiceNo STRING, StockCode STRING, Description STRING, Quant
 
 // COMMAND ----------
 
-display(spark.sql("""select Country, count(*) 
-                   from customer_data 
-                   group by Country"""))
+display(byCountryDF)
 
 // COMMAND ----------
 
 //Limpieza
-//spark.sql("DROP TABLE IF exists customer_data")
-//spark.sql("DROP TABLE IF exists customer_data_delta")
-//dbutils.fs.rm(baseOuputPath, true)
+spark.sql("DROP TABLE IF exists customer_data")
+spark.sql("DROP TABLE IF exists customer_data_delta")
+dbutils.fs.rm(baseOuputPath, true)

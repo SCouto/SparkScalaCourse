@@ -12,8 +12,7 @@
 // MAGIC   - Reemplaza los caracteres extraños con _.replaceAll("\\W+", "").toLowerCase() dentro de un map
 // MAGIC   - Filtra las palabras vacías
 // MAGIC   - Mapea cada palabra a una tupla de la siguiente forna: (palabra, 1)
-// MAGIC   - Agrupa por clave con groupByKey
-// MAGIC   - Reduce por clave sumando los valores
+// MAGIC   - Reduce por clave (reduceByKey) sumando los valores
 // MAGIC 
 // MAGIC - Muestra el resultado por pantalla con print
 // MAGIC   - Alternativa: foreachRDD, ordenar, convertir a DF y emplearshow

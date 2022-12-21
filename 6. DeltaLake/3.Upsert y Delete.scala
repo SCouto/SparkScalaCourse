@@ -2,9 +2,8 @@
 // MAGIC %md 
 // MAGIC 
 // MAGIC 
-// MAGIC ![Delta Lake](https://live-delta-io.pantheonsite.io/wp-content/uploads/2019/04/delta-lake-logo-tm.png)
-// MAGIC # Delta Lake 
 // MAGIC 
+// MAGIC ![Delta Lake](https://camo.githubusercontent.com/5535944a613e60c9be4d3a96e3d9bd34e5aba5cddc1aa6c6153123a958698289/68747470733a2f2f646f63732e64656c74612e696f2f6c61746573742f5f7374617469632f64656c74612d6c616b652d77686974652e706e67)
 // MAGIC 
 // MAGIC ## Upsert And Delete
 
@@ -55,8 +54,15 @@ spark.sql(s"""
 // MAGIC 
 // MAGIC - Sintaxis propia y optimizada
 // MAGIC - **Ejercicio** 
-// MAGIC   - Lista los registros para cliente con id 20993
+// MAGIC   - Obtén Lista los registros de la tabla `customer_data_delta_mini` para el cliente con id 20993
 // MAGIC   - Debería salirte sólo 1 cliente
+
+// COMMAND ----------
+
+val clientDF = ???
+
+display(clientDF)
+
 
 // COMMAND ----------
 
@@ -71,29 +77,43 @@ spark.sql(s"""
 // MAGIC   - Pasos: 
 // MAGIC     - Crea un dataframe con únicamente ese registro cargando la tabla customer_data_delta_mini con un `filter/where`
 // MAGIC     - Usa `withColum` y `lit` para meter el valor fijo
-// MAGIC     - Usa write.saveAsTable para crear la tabla
+// MAGIC     - Usa write.saveAsTable(customer_data_delta_to_upsert) para crear la tabla
 
 // COMMAND ----------
 
 import org.apache.spark.sql.functions.lit
 
 
+val clientDF = ???
+
+val upsertDF = ???
+
+//upsertDF.write
+
 // COMMAND ----------
 
 // MAGIC %md
 // MAGIC 
-// MAGIC Ejecutamos el Merge
+// MAGIC Ejecutamos el Merge, la sintaxis es :
+// MAGIC 
+// MAGIC - Merge into `<tabla destino>`
+// MAGIC - using `<tabla origen>`
+// MAGIC - on `clave de cruce`
+// MAGIC - Gestiona cuando el registro coincide
+// MAGIC   - Update
+// MAGIC - Gestiona cuando no coincide
+// MAGIC   - Insert
 
 // COMMAND ----------
 
 
 val sqlComand = """
-  MERGE INTO customer_data_delta_mini
-  USING customer_data_delta_to_upsert
-  ON customer_data_delta_mini.CustomerID = customer_data_delta_to_upsert.CustomerID
+  MERGE INTO <tabla_destino>
+  USING <tabla con los registros a updatead>
+  ON <tabla_destino>.<campo de cruce> = <tabla con los registros a updatead>.<campo de cruce>
   WHEN MATCHED THEN
     UPDATE SET
-      customer_data_delta_mini.StockCode = customer_data_delta_to_upsert.StockCode
+      <tabla_destino>.<Campo que debo actualizar> =  <tabla con los registros a updatead>.<Campo que debo actualizar>
   WHEN NOT MATCHED
     THEN INSERT (InvoiceNo, StockCode, Description, Quantity, InvoiceDate, UnitPrice, CustomerID, Country)
     VALUES (
@@ -110,9 +130,14 @@ spark.sql(sqlComand)
 // COMMAND ----------
 
 // MAGIC %md
-// MAGIC ** Ejercicio**
 // MAGIC - Comprueba el resultado cargando la tabla y filtrando por `customerId` 20993
 // MAGIC    -  Usa nuevamente `spark.sql` o `spark.table`con `filter`
+
+// COMMAND ----------
+val clientDF = ???
+
+display(clientDF)
+
 
 // COMMAND ----------
 
@@ -121,15 +146,41 @@ spark.sql(sqlComand)
 // MAGIC # Sintaxis Scala
 // MAGIC 
 // MAGIC - Partimos de una tabla DeltaTable cargada 
-// MAGIC - **Ejercicio**
-// MAGIC   - Crea nuevamente un dataframe con el mismo cliente y un valor diferente en StockCode
-// MAGIC   - Usa `withColum` y `lit` para meter el valor fijo
-// MAGIC   - Ejecutamos el comando merge
 
 // COMMAND ----------
 
 import io.delta.tables.DeltaTable
 val deltaTable = DeltaTable.forPath(miniDeltaDataPath)
+
+// COMMAND ----------
+
+// MAGIC %md
+// MAGIC - Crea nuevamente un dataframe con el mismo cliente
+// MAGIC - Usa `withColum` y `lit` para modificarlo y meter el valor fijo (usa 99998) en StockCode
+
+// COMMAND ----------
+
+val clientDF = ???
+
+val upsertDF = ???
+
+// COMMAND ----------
+
+// MAGIC %md
+// MAGIC - Ejecutamos el comando merge
+// MAGIC 
+// MAGIC    - deltaTable.merge(DatasetNuevo, clave de cruce) 
+// MAGIC    - whenMatched (Indicar update con un Map)
+// MAGIC    - whenNotMatched (insertAll)
+// MAGIC    - execute
+
+// COMMAND ----------
+
+deltaTable.alias("t")
+  	.merge(newUpsertDF.alias("u"),"t.<campo de cruce> = u.<campo de cruce>")
+  	.whenMatched().updateExpr(Map("<campo a updatear>" -> "u.<campo a updatear>"))
+  	.whenNotMatched().insertAll()
+  	.execute()
 
 // COMMAND ----------
 
@@ -139,6 +190,7 @@ val deltaTable = DeltaTable.forPath(miniDeltaDataPath)
 // MAGIC 
 // MAGIC `display(spark.sql(s"SELECT * FROM delta.`$miniDeltaDataPath` WHERE CustomerID=20993"))`
 // MAGIC `display(spark.sql("SELECT * FROM customer_data_delta_mini WHERE CustomerID=20993"))`
+
 
 // COMMAND ----------
 
@@ -158,6 +210,7 @@ val deltaTable = DeltaTable.forPath(miniDeltaDataPath)
 // MAGIC ##### Scala
 // MAGIC 
 // MAGIC - `deltaTable.delete($"CustomerId" === 20993)`
+
 
 // COMMAND ----------
 
