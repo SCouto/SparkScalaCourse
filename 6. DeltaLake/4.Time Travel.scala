@@ -2,11 +2,11 @@
 // MAGIC %md 
 // MAGIC 
 // MAGIC 
-// MAGIC ![Delta Lake](https://live-delta-io.pantheonsite.io/wp-content/uploads/2019/04/delta-lake-logo-tm.png)
+// MAGIC ![Delta Lake](https://camo.githubusercontent.com/5535944a613e60c9be4d3a96e3d9bd34e5aba5cddc1aa6c6153123a958698289/68747470733a2f2f646f63732e64656c74612e696f2f6c61746573742f5f7374617469632f64656c74612d6c616b652d77686974652e706e67)
 // MAGIC # Delta Lake 
 // MAGIC 
 // MAGIC 
-// MAGIC ## Upsert And Delete
+// MAGIC ## Time Travel
 
 // COMMAND ----------
 
@@ -92,7 +92,7 @@ display(df)
 
 spark.sql("SET spark.databricks.delta.formatCheck.enabled=false")
 
-// Cárgalo como parquet aquí
+// Cárgalo como parquet aquí, filtra por el clientId 20993 y muestra el resultado
 
 // COMMAND ----------
 
@@ -105,7 +105,7 @@ spark.sql("SET spark.databricks.delta.formatCheck.enabled=false")
 // MAGIC 
 // MAGIC ##### SQL
 // MAGIC - `SELECT * FROM customer_data_delta_mini VERSION AS OF 3`
-// MAGIC - `SELECT * FROM customer_data_delta_mini@202202271737490000000`
+// MAGIC - `SELECT * FROM customer_data_delta_mini@202301100919420000000`
 
 // COMMAND ----------
 
@@ -116,7 +116,7 @@ display(df)
 
 // MAGIC %sql
 // MAGIC 
-// MAGIC SELECT * FROM customer_data_delta_mini@202202271737500000000
+// MAGIC SELECT * FROM customer_data_delta_mini@202301100919420000000
 
 // COMMAND ----------
 
@@ -137,7 +137,7 @@ display(df)
 
 spark.conf.set("spark.databricks.delta.retentionDurationCheck.enabled", false)
 
-spark.sql(" VACUUM delta.`$miniDeltaDataPath` RETAIN 0 HOURS ")
+spark.sql("VACUUM customer_data_delta_mini RETAIN 0 HOURS ")
 
 // COMMAND ----------
 
@@ -150,6 +150,10 @@ spark.sql(" VACUUM delta.`$miniDeltaDataPath` RETAIN 0 HOURS ")
 val df = spark.read.format("delta").option("versionAsOf", 0).load(miniDeltaDataPath)
 
 display(df)
+
+// COMMAND ----------
+
+display(deltaTable.history)
 
 // COMMAND ----------
 
