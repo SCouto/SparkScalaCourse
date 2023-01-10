@@ -2,7 +2,7 @@
 // MAGIC %md 
 // MAGIC 
 // MAGIC 
-// MAGIC ![Delta Lake](https://live-delta-io.pantheonsite.io/wp-content/uploads/2019/04/delta-lake-logo-tm.png)
+// MAGIC ![Delta Lake](https://camo.githubusercontent.com/5535944a613e60c9be4d3a96e3d9bd34e5aba5cddc1aa6c6153123a958698289/68747470733a2f2f646f63732e64656c74612e696f2f6c61746573742f5f7374617469632f64656c74612d6c616b652d77686974652e706e67)
 // MAGIC # Delta Lake 
 // MAGIC 
 // MAGIC 
@@ -80,7 +80,7 @@ display(iotDF)
 // MAGIC **Ejercicio**
 // MAGIC - Optimiza el path haciendo zorder por deviceId y un optimize
 // MAGIC - La Sentencia es:
-// MAGIC   - `OPTIMIZE < path > ZORDER by < columna >`
+// MAGIC - OPTIMIZE delta. \`< path >\` ZORDER by < columna >
 
 // COMMAND ----------
 
