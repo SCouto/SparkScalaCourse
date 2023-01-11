@@ -2,7 +2,7 @@
 // MAGIC %md 
 // MAGIC 
 // MAGIC 
-// MAGIC ![Delta Lake](https://live-delta-io.pantheonsite.io/wp-content/uploads/2019/04/delta-lake-logo-tm.png)
+// MAGIC ![Delta Lake](https://camo.githubusercontent.com/5535944a613e60c9be4d3a96e3d9bd34e5aba5cddc1aa6c6153123a958698289/68747470733a2f2f646f63732e64656c74612e696f2f6c61746573742f5f7374617469632f64656c74612d6c616b652d77686974652e706e67)
 // MAGIC # Delta Lake 
 // MAGIC 
 // MAGIC 
@@ -70,11 +70,12 @@ display(spark.sql(s"select * from delta.`$writePath`"))
 
 // MAGIC %md
 // MAGIC 
-// MAGIC # ** Ejercicio 1** Stream tabla a tabla
-// MAGIC 
+// MAGIC # **Ejercicio 1** Stream tabla a tabla
+// MAGIC
+// MAGIC  Vamos a sacar un agregado por el tipo de actividad (ground truth)
 // MAGIC - **Ejercicio**
-// MAGIC   - En la lectura del stream generado en el paso anterior
-// MAGIC   - Agrega por el campo `gt` y cuenta el número de elementos
+// MAGIC   - Lee el stream generado en el paso anterior
+// MAGIC   - Agrega por el campo `gt` y cuenta el número de elementos con count
 
 // COMMAND ----------
 
@@ -104,8 +105,11 @@ display(spark.sql(s"select * from delta.`$activityPath`"))
 // MAGIC #Ejercicio 2
 // MAGIC 
 // MAGIC ## Gráficas
-// MAGIC - ** Ejercicio**
-// MAGIC   - Añade el count sobre el dataframe para realizar el conteo
+// MAGIC - **Ejercicio**
+// MAGIC   - Agrega en una ventana de 60 minutos sobre event time sobre el campo gt
+// MAGIC   - Crea la ventana con window($"columna", "60 minutes")
+// MAGIC   - Agrega con la siguiente sintaxis groupBy(window, columna) donde columna es gt
+// MAGIC   - Contea los elementos en cada ventana con count
 
 // COMMAND ----------
 
@@ -114,7 +118,7 @@ import org.apache.spark.sql.functions.{hour, window}
 
 lazy val countsDF = deltaStreamWithTimestampDF      
   .withWatermark("event_time", "180 minutes")
-  .groupBy(window($"event_time", "60 minute"),$"gt")
+//Agrega por la ventana  .groupBy(window($"event_time", "60 minutes"),$"gt")
 //Aquí añade el count
 
 

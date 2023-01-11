@@ -35,7 +35,13 @@ spark.sql(s"""
     CREATE TABLE IF NOT EXISTS customer_data_delta_mini
     USING DELTA 
     LOCATION "$miniDeltaDataPath" 
-  """) 
+  """)
+
+
+// COMMAND ----------
+
+// MAGIC %sql
+// MAGIC	select * from customer_data_delta_mini
 
 // COMMAND ----------
 
