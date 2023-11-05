@@ -1,4 +1,11 @@
 // Databricks notebook source
+sum(5,3)
+
+// COMMAND ----------
+
+val sum = (x: Int, y: Int) => x +y
+
+// COMMAND ----------
 
 object Hello {
     def main(args: Array[String]) = {
@@ -17,21 +24,6 @@ object Intro extends App {
     x + y
   }
 
-  //Ejemplos funciones Parciales
-  def divide: PartialFunction[Int, Int] = {
-    case d: Int if d != 0 => 42 / d
-  }
-
-  val divide2: PartialFunction[Int, Int] = {
-    case d: Int if d != 0 => 42 / d
-  }
-
-  def divide3(x: Int): PartialFunction[Int, Int] = {
-    case d: Int if d != 0 => x / d
-  }
-
-
-}
 
 // COMMAND ----------
 
@@ -42,16 +34,22 @@ Intro.main(Array())
 
 //Ejercicio 1: substract, mutiply, divide
 
-def subs = ???
-def mult = ???
-def div = ???
+def subs(x: Int, y: Int) = x- y
+def mult(x: Int, y: Int) = x * y
+def div(x: Double, y: Double): Double = x / y
 
 // COMMAND ----------
 
 //Ejercicio
 
-//def operate
+def operar[A, B, C](x: A, y: C, f: (A,C) => B) = f(x, y)
 
+
+
+// COMMAND ----------
+
+operar(1,2, (x: Int, y: Int) => x +2 + y)
+operar("Sergio",5, (x: String, y: Int) => x.length + y)
 
 // COMMAND ----------
 
@@ -98,4 +96,3 @@ class IntroTest extends FlatSpec with Matchers {
 }
 
 (new IntroTest).execute()
-

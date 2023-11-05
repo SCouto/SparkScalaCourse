@@ -1,5 +1,4 @@
 // Databricks notebook source
-
 import scala.util.{Failure, Success, Try}
 
   def divisionWithException (x: Int, y: Int) : Int = {
@@ -10,6 +9,9 @@ import scala.util.{Failure, Success, Try}
     }
   }
 
+// COMMAND ----------
+
+
   def divisionwithTryPM (x: Int, y: Int) : Int = {
 
     Try(x/y) match {
@@ -18,9 +20,17 @@ import scala.util.{Failure, Success, Try}
     }
   }
 
+
+// COMMAND ----------
+
+
   def divisionwithTry (x: Int, y: Int) : Try[Int] = {
     Try(x/y)
   }
+
+
+
+// COMMAND ----------
 
 
   def divisionwithOption (x: Int, y: Int) : Option[Int] = {
@@ -30,6 +40,10 @@ import scala.util.{Failure, Success, Try}
       case _ => None
     }
   }
+
+// COMMAND ----------
+
+
 
   def divisionwithEither (x: Int, y: Int) : Either[String, Int] = {
 
@@ -42,11 +56,16 @@ import scala.util.{Failure, Success, Try}
 // COMMAND ----------
 
 //Ejercicios
+
+applyRate(100.0)
+
 def applyRate(cant: Double, tipo: Option[Double]): Double = ???
+
 
 def applyOptionalRate(cant: Option[Double], tipo: Option[Double]): Option[Double] = ???
 
 def second(list: List[Int]): Option[Int] = ???
+
 // COMMAND ----------
 
 import org.scalacheck.Gen

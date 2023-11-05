@@ -1,5 +1,6 @@
 // Databricks notebook source
 //Ejercicio 1
+//Usando pattern matching para descomponer la lista, recuerda h::t, donde t es una lista (Puede ser Nil o una lista con cabecera y cola a su vez)
 
 def penultimate(list: List[Int]): Option[Int] = ???
 
@@ -31,7 +32,11 @@ class PenultimateTest extends FlatSpec with Matchers with ScalaCheckPropertyChec
 // COMMAND ----------
 
 //Ejercicio 2
+//Pista:
+//el 3 elemento de List(a,b,c) es lo mismo que el 2 elemento de List(b,c) y que el 1 elemento de List(c) 
+//Usa pattern matching con if para saber el valor de n, y llama otra vez a la función nth restando 1  y elimimando la cabecera
 def nth(list: List[Int], n: Int): Option[Int] = ???
+}
 
 // COMMAND ----------
 
@@ -65,6 +70,8 @@ class NthTest extends FlatSpec with Matchers with ScalaCheckPropertyChecks {
 // COMMAND ----------
 
 //Ejercicio 3
+//Recuerda pasar el String a mayusculas con toUpperCase y eliminar los espacios con .replace("\\s", "")
+//Pista: Ojo al método reverse
 def isPalindrome(word: String): Boolean = ???
 
 
@@ -97,7 +104,7 @@ class PalindromeTest extends FlatSpec with Matchers with ScalaCheckPropertyCheck
 // COMMAND ----------
 
 // MAGIC %md # The cell below provides implementation for both foldLeft and foldRight with List and Streams. 
-// MAGIC 
+// MAGIC
 // MAGIC You can use them in exercises 4, 5 8, and 9
 
 // COMMAND ----------
@@ -139,6 +146,8 @@ final def foldLeft[A, B](s: Stream[A], z: => B)(f: ( => B, A) => B): B = {
 // COMMAND ----------
 
 //Ejercicio 4 - Reverse
+//Usa foldLeft, recuerda que el acumulador va a la izquierda (acc, elem) => ..
+// El elemento neutro es una lista vacía Nil, pero necesitas indicarle el tipo así valor: Tipo
 def reverse[A](as: List[A]): List[A] = ???
 
 // COMMAND ----------
@@ -166,6 +175,8 @@ class ReverseTest extends FlatSpec with Matchers with ScalaCheckPropertyChecks {
 // COMMAND ----------
 
 //Ejercicio 5 - Map 
+//Usa foldRight creando una lista con el elemento aplicado f(elem) y el acumulador acc
+//Ojo al tipo del elemento neutro, igual que en el ejercicio anterior
   def map[A, B](l: List[A])(f: A => B): List[B] = ???
 
 // COMMAND ----------
@@ -197,6 +208,7 @@ class MapFoldTest extends FlatSpec with Matchers with ScalaCheckPropertyChecks {
 // COMMAND ----------
 
 //Ejercicio 6 - dropWhile
+//Usa pattern matching, tienes que eliminar elementos mientras la funcion f sea cierta.  Usa f para saber si la cabecera es cierta: if f(h) == true
 @annotation.tailrec
 final def dropWhile[A](s: Stream[A])(f: A => Boolean): Stream[A] = ???
 
@@ -233,6 +245,7 @@ val emptyIntStream: Stream[Int] = Stream()
 // COMMAND ----------
 
 //Ejercicio 7 - take
+//Obtén n elemento del Stream. Recuerda que para coger 3 elementos de Stream(a,b,c) es lo mismo que coger 2 elementos del Stream(b,c) poniendole a al comienzo con #::
 
 def take[A](s: Stream[A], n: Int): Stream[A] = ???
 
@@ -275,6 +288,9 @@ class TakeTest extends FlatSpec with Matchers with ScalaCheckPropertyChecks {
 // COMMAND ----------
 
 //Ejercicio 8 - map fold
+//Usa fold, es el mismo ejercicio que el 5 pero con Stream en vez de List. 
+//Stream se compone con #:: 
+//List se compone con ::
 def map[A, B](s: Stream[A])(f: A => B): Stream[B] = ???
 
 // COMMAND ----------
@@ -304,6 +320,8 @@ class MapFoldStreamTest extends FlatSpec with Matchers with ScalaCheckPropertyCh
 // COMMAND ----------
 
 //Ejercicio 9 -filter
+//Usa foldRight, tendrás que hacer un if y concatenar nel elemento o no en función de si es true o false
+//Hicimos este ejercicio en clase para listas
 def filter[A](s: Stream[A])(p: A => Boolean): Stream[A] = ???
 
 // COMMAND ----------
@@ -334,7 +352,13 @@ class FilterTest extends FlatSpec with Matchers with ScalaCheckPropertyChecks {
 // COMMAND ----------
 
 //Ejercicio 10
-def fibs: Stream[Int] = ???
+//Difícil usa una función auxiliar go que vaya generando los números concatenando el primer acunulador coin la llamada a la funcion auxiliar con el segundo y la suma de los dos como parámetros
+def fibs: Stream[Int] = {
+
+  def go (acc1: Int, acc2: Int): Stream[Int] = ???
+  go (0,1)
+  
+}
 
 // COMMAND ----------
 

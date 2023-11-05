@@ -20,12 +20,14 @@ def prod(x: Double, y: Double) = x +y
 
 // COMMAND ----------
 
-  //Ejercicios I
+ 
+
+//Ejercicios I
   def foldRight[A, B](as: List[A], z: B)(f: (A, B) => B): B = ???
 
   def sumFold(ints: List[Int]): Int = ???
 
-  def productFold(ints: List[Double]): Double =  ???
+  def productFold(lista: List[Double]): Double =  ???
 
   def lengthFoldRight[A](as: List[A]): Int = ???
 
@@ -92,6 +94,14 @@ class Ejercicios1Test extends FlatSpec with Matchers with ScalaCheckPropertyChec
 
   //Ejercicios II
   //@annotation.tailrec
+
+ def foldRight[A, B](as: List[A], z: B)(f: (A, B) => B): B = {
+    as match {
+      case Nil => z
+      case h :: t => f(h, foldRight(t, z)(f))
+    }
+  }
+
   def foldLeft[A, B](as: List[A], z: B)(f: (B, A) => B): B = ???
 
   def sumFoldLeft(ints: List[Int]): Int = ???
@@ -100,7 +110,7 @@ class Ejercicios1Test extends FlatSpec with Matchers with ScalaCheckPropertyChec
 
   def lengthFoldLeft[A](as: List[A]): Int = ???
 
-  def filter[A](l: List[A])(f: A => Boolean): List[A] = ???
+def filter[A](l: List[A])(f: A => Boolean): List[A] = foldRight(l, List[A]())((elem, acc) => if (f(elem)) elem::acc else acc)
 
 // COMMAND ----------
 

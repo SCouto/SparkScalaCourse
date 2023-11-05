@@ -98,6 +98,13 @@ class Ejercicios1Test extends FlatSpec with Matchers with ScalaCheckPropertyChec
   @annotation.tailrec
   final def foldLeft[A, B](s: Stream[A], z: => B)(f: ( => B, A) => B): B = ???
 
+  final def forAllBasic[A, B](s: Stream[A]): B = {
+   s match {
+      case Stream.Empty => true
+      case h#::t => f(h) && forAllBasic(t)
+    }
+  }
+
   def forAllFold[A](s: Stream[A])(p:A => Boolean): Boolean = ???
  
   def existsFoldRight[A](s: Stream[A])(f: A => Boolean): Boolean = ???
@@ -175,14 +182,3 @@ val ones: Stream[Int] = 1#::ones
 def constant[A](a: A): Stream[A] = ???
 
 def from(n: Int): Stream[Int] = ???
-
-// COMMAND ----------
-
-//Ejercicio IV
-def unfold[A,S](z: S)(f: S => Option[(A,S)]): Stream[A] = ???
-
-def onesUnfold: Stream[Int] = ???
-
-def constantUnfold[A](a: A): Stream[A] = ???
-
-def fromUnfold(n: Int): Stream[Int] = ???

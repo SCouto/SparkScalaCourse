@@ -54,4 +54,3 @@ class CurryTest extends FlatSpec with Matchers with ScalaCheckPropertyChecks{
 }
 
 (new CurryTest).execute()
-

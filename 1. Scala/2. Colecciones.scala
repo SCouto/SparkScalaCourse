@@ -1,91 +1,10 @@
 // Databricks notebook source
-  //Recusividad
-  def wrongFactorial(n: Int) = {
-    if (n <= 0) 1
-    else n * factorial(n - 1)
-  }
-
-  def factorial(n: Int) = {
-
-    @annotation.tailrec
-    def rec(acc: Int, current: Int): Int = {
-      if (current <= 0) acc
-      else rec(acc * current, current - 1)
-
-    }
-
-    rec(1, n)
-  }
-
-
-// COMMAND ----------
-
 //Ejercicios I
-
-//def operate
-
-def max(list: List[Int]): Int = ???
-
-def second(list: List[Int]): Int = ???
-
-//@annotation.tailrec
-def nth(list: List[Int], n: Int): Int = ???
-
-// COMMAND ----------
-
-import org.scalacheck.Gen
-import org.scalatest._
-import org.scalatestplus.scalacheck._
-
-
-class Ejercicios1Test extends FlatSpec with Matchers with ScalaCheckPropertyChecks {
-
-  "max" should "give the max for each list " in {
-    max(List(1,2,3)) should be (3)
-    max(List(-5,-26,-15)) should be (-5)
-  }
-  
-   it should "return MinValue if the list is empty" in {
-    max(List()) should be (Int.MinValue)
-  }
-  
-  "second" should "return the second element for each list " in {
-    second(List(1,2,3)) should be (2)
-  }
-  
-  it should "return -1 if the second element is not present" in {
-    second(List()) should be (-1)
-    second(List(5)) should be (-1)
-  }
-  
-  "nth" should "give the nth element for each list " in {
-    nth(List(1,2,3), 1) should be (1)
-    nth(List(3,34,75), 2) should be (34)
-  }
-  
-    
-  it should "return -1 if the required element is not present" in {
-    nth(List(1,2,3), 5) should be (-1)
-  }
-  
-      
-  it should "work returning -1 with negative elements" in {
-    nth(List(1,2,3), -1) should be (-1)
-  }
-}
-
-
-(new Ejercicios1Test).execute()
-
-// COMMAND ----------
-
-//Ejercicios II
 def addAtTheEnd(list: List[Int], elem: Int): List[Int] = ???
 
 def addAtTheEndIfNotExists(list: List[Int], elem: Int): List[Int] = ???
 
 def doubleIfOdd(list: List[Int]): List[Int] = ???
-
 
 
 // COMMAND ----------
@@ -140,12 +59,12 @@ class Ejercicios2Test extends FlatSpec with Matchers with ScalaCheckPropertyChec
 
 // COMMAND ----------
 
-//Ejercicio III
+//Ejercicio II
 val romanos = Map(1 -> "I", 2 -> "II", 3 -> "III", 4 -> "IV", 5 -> "V", 6 -> "VI", 7 -> "VII", 8 -> "VIII", 9 -> "IX", 10 → "X")
 
 // COMMAND ----------
 
-//Ejercicios IV
+//Ejercicios III
 def sum(ints: List[Int]): Int = ???
 
 def product(ints: List[Double]): Double = ???
