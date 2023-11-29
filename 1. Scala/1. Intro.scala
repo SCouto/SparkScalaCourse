@@ -34,22 +34,16 @@ Intro.main(Array())
 
 //Ejercicio 1: substract, mutiply, divide
 
-def subs
-def mult
-def div
+//def subs
+//def mult
+//def div
 
 // COMMAND ----------
 
 //Ejercicio
 
-def operar[A, B, C](x: A, y: C, f: (A,C) => B) = f(x, y)
+//def operar
 
-
-
-// COMMAND ----------
-
-operar(1,2, (x: Int, y: Int) => x +2 + y)
-operar("Sergio",5, (x: String, y: Int) => x.length + y)
 
 // COMMAND ----------
 
@@ -88,9 +82,9 @@ class IntroTest extends FlatSpec with Matchers {
     mult(2,-5) should be (-10)
   }
   
- "operate" should "work with sum" in {
-    operate(2, 3, (x: Int, y: Int) => x+ y) should be (sum(2,3))
-    operate(3, 3, sum) should be (sum(3,3))
+ "operar" should "work with sum" in {
+    operar(2, 3, (x: Int, y: Int) => x+ y) should be (sum(2,3))
+    operar(3, 3, sum) should be (sum(3,3))
   }*/
 
 }
