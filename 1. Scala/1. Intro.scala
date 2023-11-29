@@ -34,9 +34,9 @@ Intro.main(Array())
 
 //Ejercicio 1: substract, mutiply, divide
 
-def subs(x: Int, y: Int) = x- y
-def mult(x: Int, y: Int) = x * y
-def div(x: Double, y: Double): Double = x / y
+def subs
+def mult
+def div
 
 // COMMAND ----------
 
