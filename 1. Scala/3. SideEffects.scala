@@ -57,8 +57,6 @@ import scala.util.{Failure, Success, Try}
 
 //Ejercicios
 
-applyRate(100.0)
-
 def applyRate(cant: Double, tipo: Option[Double]): Double = ???
 
 
