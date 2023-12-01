@@ -110,7 +110,7 @@ class Ejercicios1Test extends FlatSpec with Matchers with ScalaCheckPropertyChec
 
   def lengthFoldLeft[A](as: List[A]): Int = ???
 
-def filter[A](l: List[A])(f: A => Boolean): List[A] = foldRight(l, List[A]())((elem, acc) => if (f(elem)) elem::acc else acc)
+def filter[A](l: List[A])(f: A => Boolean): List[A] = ???
 
 // COMMAND ----------
 
