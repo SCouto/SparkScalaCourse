@@ -70,7 +70,7 @@ class NthTest extends FlatSpec with Matchers with ScalaCheckPropertyChecks {
 // COMMAND ----------
 
 //Ejercicio 3
-//Recuerda pasar el String a mayusculas con toUpperCase y eliminar los espacios con .replace("\\s", "")
+//Recuerda pasar el String a mayusculas con toUpperCase y eliminar los espacios con .replaceAll("\\s", "")
 //Pista: Ojo al método reverse
 def isPalindrome(word: String): Boolean = ???
 
