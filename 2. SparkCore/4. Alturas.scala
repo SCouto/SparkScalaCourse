@@ -13,7 +13,7 @@
 // MAGIC M,179
 // MAGIC ```
 // MAGIC 
-// MAGIC * Por defecto el método read carga cada registro en una línea
+// MAGIC * Por defecto el método textFile carga cada registro en una línea
 // MAGIC * El primer paso es dividir cada registro, utiliza el método map y un split por el separador (la coma)
 // MAGIC * Ahora tienes en cada registro un array, haz un nuevo map que genere en cada registro una tupla, con los dos campos del array
 // MAGIC   * Utiliza nombreQueLeDes(0) y nombreQueLeDes(1) para acceder a cada elemento de array
