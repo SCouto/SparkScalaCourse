@@ -13,14 +13,15 @@ import org.apache.spark.sql.functions._
 
 
 
-  //Task 1: Localizar cuantos anuncios distintos se publican cada día
+  //Task 1: Localizar cuantos anuncios distintos se publican cada día - Output should be 10 rows
+//Sample day: 2020-11-05 950513
   val numberOfAdsByDayDF =  ???
 
   display(numberOfAdsByDayDF)
 
 // COMMAND ----------
 
-  //Task2 Calcular el beneficio medio diario de cada anuncio
+  //Task2 Calcular el beneficio medio diario de cada anuncio - Sample output ad_236 - 5676
   //Beneficio: price * impresions
 
   //Primero calcula impresiones por anuncio
@@ -35,7 +36,8 @@ display(adsWithAvgRevenueDF)
 
 // COMMAND ----------
 
-//Task3 Cuántos anuncios distintos se publicaron por site (mostrando el nombre del site)
+//Task3 Cuántos anuncios distintos se publicaron por site (mostrando el nombre del site) - Output should be 1001 rows
+//Sample output: site1 5080
   val adsBySiteIdDF = ???
 
   val distinctAdsBySiteDF = ???

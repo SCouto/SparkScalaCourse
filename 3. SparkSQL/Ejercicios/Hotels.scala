@@ -42,35 +42,35 @@ val rawHotelsValid = rawHotels
 
 // COMMAND ----------
 
-//hoteles de Espanha
+//hoteles de Espanha.  Output should be 428 hotels
     val hotelsSpain = ???
 
 display(hotelsSpain)
 
 // COMMAND ----------
 
-//hoteles de Espanha cada uno con sus ingresos (incluso si sus ingresos son 0)
+//hoteles de Espanha cada uno con sus ingresos (incluso si sus ingresos son 0) - Output should be 428 hotels as well
 val hotelsSpainWithRevenues = ???
 
 display(hotelsSpainWithRevenues)
 
 // COMMAND ----------
 
-//top 100  hoteles
+//top 100  hoteles - Top one is Las Olas in playas del ingles with 2720 revenue
 val top100Hotels = ???
 
 display(top100Hotels)
 
 // COMMAND ----------
 
-//top 200 ciudades
+//top 200 ciudades - Top one is Malaga with 29470 revenue
 val top200cities = ???
 
 display(top200cities)
 
 // COMMAND ----------
 
-//sin ingresos
+//sin ingresos - Output should be 4134 rows
 val noRevenues = ???
 
 display(noRevenues)
